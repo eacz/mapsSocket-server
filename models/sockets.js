@@ -3,16 +3,19 @@ const Markers = require("./markers")
 class Sockets {
   constructor(io) {
     this.io = io
-    this.marker = new Markers()
+    this.markers = new Markers()
     this.socketEvents()
   }
 
   socketEvents() {
     this.io.on('connection', (socket) => {
-        //TODO: active markers event
-
-        //TODO: new marker event
-        
+        //active markers event
+        socket.emit('active-markers', this.markers.actives )
+        //new marker event
+        socket.on('new-marker', marker => {
+          this.markers.addMarker(marker)
+          socket.broadcast.emit('new-marker', marker)
+        })
         //TODO: update marker event
     })
   }
