@@ -13,7 +13,7 @@ class Markers {
   }
 
   updateMarker(marker){
-    actives[marker.id] = marker
+    this.actives[marker.id] = marker
   }
 
 }
